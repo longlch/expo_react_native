@@ -8,19 +8,18 @@ import Header from "./components/Header";
 import Input from "./components/Input";
 import ListItem from "./components/ListItem";
 
-const headerTitle = "TODO"
+const headerTitle = "TODO";
 export default class Main extends Component {
 
     state = {
-        isChecked: false
-    }
+        isCheckedAll: false,
+    };
 
     handleTodoItem = (isChecked) =>{
-        console.log('handle checkeds', isChecked);
         this.setState({
-            isChecked: !isChecked
+            isCheckedAll: !isChecked
         });
-    }
+    };
 
     render() {
         return (
@@ -32,7 +31,7 @@ export default class Main extends Component {
                 <Input/>
 
                 <ListItem
-                    isChecked={this.state.isChecked}
+                    isCheckedAll={this.state.isCheckedAll}
                     handleTodoItem={(isChecked)=>this.handleTodoItem(isChecked)}
                 />
 
@@ -45,7 +44,6 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         padding: 8,
-        marginTop: 200 // TODO: Remove this line
     }
 });
 

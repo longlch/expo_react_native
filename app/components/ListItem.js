@@ -9,7 +9,7 @@ export default class ListItem extends Component {
 
 
     render() {
-        const {isChecked, handleTodoItem} = this.props;
+        const {isCheckedAll, handleTodoItem} = this.props;
         const arrs = [1,2,3,4];
 
         return (
@@ -17,10 +17,10 @@ export default class ListItem extends Component {
 
                 <View style={styles.recentContainer}>
                     <Text style={styles.recentText}>RECENT NOTES</Text>
-                    <TouchableOpacity onPress={()=>handleTodoItem(isChecked)}>
+
+                    <TouchableOpacity onPress={()=>handleTodoItem(isCheckedAll)}>
                         <Ionicons name="md-trash" size={25} color={lighterWhite} />
                     </TouchableOpacity>
-
                 </View>
 
                 <ScrollView>
@@ -28,7 +28,7 @@ export default class ListItem extends Component {
                         arrs.map((e,i)=>
                             <TodoItem
                                 key={i}
-                                isChecked={isChecked}
+                                isCheckedAll={isCheckedAll}
                                 handleTodoItem={(isCheckedFromInput)=>handleTodoItem(isCheckedFromInput)}
                             />)
                     }

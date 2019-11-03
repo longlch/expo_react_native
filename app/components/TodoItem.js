@@ -8,16 +8,16 @@ const { height, width } = Dimensions.get('window');
 export default class TodoItem extends Component {
 
     render() {
-        const {isChecked,handleTodoItem} = this.props;
+        const {isCheckedAll,handleTodoItem} = this.props;
 
         return (
             <View style={styles.container}>
 
                 <View style={styles.containerTodo}>
-                    <TouchableOpacity onPress={()=>handleTodoItem(isChecked)}>
+                    <TouchableOpacity onPress={()=>handleTodoItem(isCheckedAll)}>
                         <View style={[
                             styles.circle,
-                            isChecked ? {borderColor: circleActive} : {
+                            isCheckedAll ? {borderColor: circleActive} : {
                                 borderColor: circleInactive
                             }
                         ]}/>
@@ -26,7 +26,7 @@ export default class TodoItem extends Component {
                     <View style={styles.viewTodo}>
                         <Text style={[
                             styles.text,
-                            isChecked && {
+                            isCheckedAll && {
                                 color: itemListTextStrike,
                                 textDecorationLine: 'line-through'
                             }
@@ -37,7 +37,7 @@ export default class TodoItem extends Component {
 
                 <View style={styles.containerTodo}>
                     {
-                        isChecked &&
+                        isCheckedAll &&
                         <View>
                             <TouchableOpacity>
                                 <Ionicons name="md-trash" size={25} color={deleteIconColor} />
