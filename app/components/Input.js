@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, TextInput, Text, View } from "react-native";
-import {inputPlaceholder, lighterWhite} from "../utils/Colors";
+import {inputPlaceholder, itemListText, itemListTextStrike, lighterWhite} from "../utils/Colors";
 
 export default class Input extends Component {
 
@@ -32,8 +32,9 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     title: {
-        fontSize: 20,
-        color: lighterWhite
+        fontSize: 15,
+        color: itemListTextStrike,
+        fontWeight: '100'
     }
 });
 

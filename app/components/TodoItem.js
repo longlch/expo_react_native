@@ -1,34 +1,23 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Dimensions } from "react-native";
+import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {circleActive, circleInactive, deleteIconColor, itemListTextStrike, lightWhite} from "../utils/Colors";
-import { MaterialIcons, FontAwesome,Ionicons } from '@expo/vector-icons';
+import {Ionicons} from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('window');
 
 export default class TodoItem extends Component {
 
-    state = {
-        isChecked: false
-    }
-
-    checkCircle = () =>{
-        console.log('log');
-        this.setState({
-            isChecked: !this.state.isChecked
-        });
-    }
-
-
     render() {
-        const {isChecked} = this.state;
+        const {isChecked,handleTodoItem} = this.props;
+
         return (
             <View style={styles.container}>
 
                 <View style={styles.containerTodo}>
-                    <TouchableOpacity onPress={this.checkCircle}>
+                    <TouchableOpacity onPress={()=>handleTodoItem(isChecked)}>
                         <View style={[
                             styles.circle,
-                            this.state.isChecked ? {borderColor: circleActive} : {
+                            isChecked ? {borderColor: circleActive} : {
                                 borderColor: circleInactive
                             }
                         ]}/>

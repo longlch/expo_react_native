@@ -6,11 +6,22 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {primaryGradientArray} from "./utils/Colors";
 import Header from "./components/Header";
 import Input from "./components/Input";
-import TodoItem from "./components/TodoItem";
 import ListItem from "./components/ListItem";
 
 const headerTitle = "TODO"
 export default class Main extends Component {
+
+    state = {
+        isChecked: false
+    }
+
+    handleTodoItem = (isChecked) =>{
+        console.log('handle checkeds', isChecked);
+        this.setState({
+            isChecked: !isChecked
+        });
+    }
+
     render() {
         return (
             <LinearGradient
@@ -18,9 +29,12 @@ export default class Main extends Component {
                 colors={primaryGradientArray}>
 
                 <Header title={headerTitle}/>
-
                 <Input/>
-                <ListItem/>
+
+                <ListItem
+                    isChecked={this.state.isChecked}
+                    handleTodoItem={(isChecked)=>this.handleTodoItem(isChecked)}
+                />
 
             </LinearGradient>
         );
