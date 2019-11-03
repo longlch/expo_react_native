@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 
-export default class ItemList extends Component {
+export default class TodoItem extends Component {
 
     render() {
         return (
-            <View style={styles.ListContainer}>
+            <View style={styles.container}>
                 <Text>List Here</Text>
             </View>
         );
@@ -13,11 +13,11 @@ export default class ItemList extends Component {
 }
 
 const styles = StyleSheet.create({
-    ListContainer:{
+    container:{
         marginTop: 40,
         alignItems: 'center'
     },
-    headerText: {
+    text: {
         fontSize: 19,
         fontWeight: 'bold',
         color: 'white'

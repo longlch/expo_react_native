@@ -6,7 +6,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {primaryGradientArray} from "./utils/Colors";
 import Header from "./components/Header";
 import Input from "./components/Input";
-import ItemList from "./components/ItemList";
+import TodoItem from "./components/TodoItem";
 
 const headerTitle = "TODO"
 export default class Main extends Component {
@@ -18,7 +18,7 @@ export default class Main extends Component {
 
                 <Header title={headerTitle}></Header>
                 <Input/>
-                <ItemList/>
+                <TodoItem/>
             </LinearGradient>
         );
     }

@@ -5,7 +5,7 @@ export default class Header extends Component {
     render() {
         const {title} = this.props;
         return (
-            <View style={styles.headerContainer}>
+            <View style={styles.container}>
                 <Text style={styles.headerText}>{title}</Text>
             </View>
         );
@@ -13,11 +13,11 @@ export default class Header extends Component {
 }
 
 const styles = StyleSheet.create({
-    headerContainer:{
+    container:{
         marginTop: 40,
         alignItems: 'center'
     },
-    headerText: {
+    text: {
         fontSize: 19,
         fontWeight: 'bold',
         color: 'white'
