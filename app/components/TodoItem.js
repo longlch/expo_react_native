@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Dimensions } from "react-native";
-import {circleActive, circleInactive, deleteIconColor, lightWhite} from "../utils/Colors";
+import {circleActive, circleInactive, deleteIconColor, itemListTextStrike, lightWhite} from "../utils/Colors";
 import { MaterialIcons, FontAwesome,Ionicons } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('window');
@@ -35,14 +35,18 @@ export default class TodoItem extends Component {
                     </TouchableOpacity>
 
                     <View style={styles.viewTodo}>
-                        <Text style={styles.text}>lorem</Text>
+                        <Text style={[
+                            styles.text,
+                            isChecked && {
+                                color: itemListTextStrike,
+                                textDecorationLine: 'line-through'
+                            }
+                        ]}>lorem</Text>
                     </View>
 
                 </View>
 
-
                 <View style={styles.containerTodo}>
-
                     {
                         isChecked &&
                         <View>
@@ -51,12 +55,7 @@ export default class TodoItem extends Component {
                             </TouchableOpacity>
                         </View>
                     }
-
                 </View>
-
-
-
-
             </View>
         );
     }
@@ -64,13 +63,12 @@ export default class TodoItem extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        marginTop: 40,
+        marginTop: 10,
         backgroundColor: lightWhite,
         padding: 5,
         flexDirection: 'row',
         justifyContent: 'space-between',
-
-
+        borderRadius: 4
     },
     text: {
         fontWeight: '100',

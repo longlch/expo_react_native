@@ -1,27 +1,39 @@
 import React, {Component} from 'react';
-import {StyleSheet, TextInput } from "react-native";
+import {StyleSheet, TextInput, Text, View } from "react-native";
+import {inputPlaceholder, lighterWhite} from "../utils/Colors";
 
 export default class Input extends Component {
-    render() {
-        const {title} = this.props;
-        return (
-            <TextInput
-                style={styles.input}
-                placeholder="Type here to add note."
 
-            />
+    submit = ()=>{
+        console.log('submit');
+    }
+
+    render() {
+        return (
+            <View>
+                <Text style={styles.title}>WHAT'S NEXT</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Add Notes ..."
+                    placeholderTextColor={inputPlaceholder}
+                    multiline={true}
+                    blurOnSubmit={true}
+                    onSubmitEditing={this.submit}
+                />
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-   input:{
-       paddingTop: 10,
-       paddingRight: 15,
-       paddingLeft:15,
-       fontSize: 34,
-       color: 'white',
-       borderWidth: 1
-   }
+    input: {
+        fontSize: 34,
+        color: 'white',
+        fontWeight: '500'
+    },
+    title: {
+        fontSize: 20,
+        color: lighterWhite
+    }
 });
 

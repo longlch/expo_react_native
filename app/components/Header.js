@@ -6,7 +6,7 @@ export default class Header extends Component {
         const {title} = this.props;
         return (
             <View style={styles.container}>
-                <Text style={styles.headerText}>{title}</Text>
+                <Text style={styles.text}>{title}</Text>
             </View>
         );
     }
