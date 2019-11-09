@@ -4,21 +4,17 @@ import {inputPlaceholder, itemListText, itemListTextStrike, lighterWhite} from "
 
 export default class Input extends Component {
 
-    submit = ()=>{
-        console.log('submit');
-    }
-
     render() {
+        const {onSubmitItem} = this.props;
         return (
             <View>
                 <Text style={styles.title}>WHAT'S NEXT</Text>
                 <TextInput
+                    multiline={false}
                     style={styles.input}
                     placeholder="Add Notes ..."
                     placeholderTextColor={inputPlaceholder}
-                    multiline={true}
-                    blurOnSubmit={true}
-                    onSubmitEditing={this.submit}
+                    onSubmitEditing={onSubmitItem}
                 />
             </View>
         );
