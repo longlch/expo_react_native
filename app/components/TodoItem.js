@@ -7,17 +7,37 @@ const { height, width } = Dimensions.get('window');
 
 export default class TodoItem extends Component {
 
+    state = {
+        isChecked: false,
+        text: ''
+    };
+
+    selectIcon = (isChecked) => {
+        this.setState({
+            isChecked: !isChecked
+        });
+    };
+
+    componentDidMount() {
+        const {isChecked, text,items} = this.props;
+        // console.log('items from child', items);
+        this.setState({
+            isChecked: isChecked,
+            text: text
+        });
+    }
+
     render() {
-        const {isCheckedAll,handleTodoItem} = this.props;
+        const {isChecked, text} = this.state;
 
         return (
             <View style={styles.container}>
 
                 <View style={styles.containerTodo}>
-                    <TouchableOpacity onPress={()=>handleTodoItem(isCheckedAll)}>
+                    <TouchableOpacity onPress={()=>this.selectIcon(isChecked)}>
                         <View style={[
                             styles.circle,
-                            isCheckedAll ? {borderColor: circleActive} : {
+                            isChecked ? {borderColor: circleActive} : {
                                 borderColor: circleInactive
                             }
                         ]}/>
@@ -26,18 +46,18 @@ export default class TodoItem extends Component {
                     <View style={styles.viewTodo}>
                         <Text style={[
                             styles.text,
-                            isCheckedAll && {
+                            isChecked && {
                                 color: itemListTextStrike,
                                 textDecorationLine: 'line-through'
                             }
-                        ]}>lorem</Text>
+                        ]}>{text}</Text>
                     </View>
 
                 </View>
 
                 <View style={styles.containerTodo}>
                     {
-                        isCheckedAll &&
+                        isChecked &&
                         <View>
                             <TouchableOpacity>
                                 <Ionicons name="md-trash" size={25} color={deleteIconColor} />
@@ -67,7 +87,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     viewTodo:{
-      marginTop: 4
     },
     circle: {
         borderWidth: 3,

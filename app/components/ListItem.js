@@ -7,10 +7,9 @@ import {itemListTextStrike, lighterWhite} from "../utils/Colors";
 
 export default class ListItem extends Component {
 
-
     render() {
-        const {isCheckedAll, handleTodoItem} = this.props;
-        const arrs = [1,2,3,4];
+        const {isCheckedAll, selectAllItem, items} = this.props;
+
 
         return (
             <View style={styles.container}>
@@ -18,18 +17,19 @@ export default class ListItem extends Component {
                 <View style={styles.recentContainer}>
                     <Text style={styles.recentText}>RECENT NOTES</Text>
 
-                    <TouchableOpacity onPress={()=>handleTodoItem(isCheckedAll)}>
+                    <TouchableOpacity onPress={()=>selectAllItem(isCheckedAll)}>
                         <Ionicons name="md-trash" size={25} color={lighterWhite} />
                     </TouchableOpacity>
                 </View>
 
                 <ScrollView>
                     {
-                        arrs.map((e,i)=>
+                        items.map((e,i)=>
                             <TodoItem
                                 key={i}
-                                isCheckedAll={isCheckedAll}
-                                handleTodoItem={handleTodoItem}
+                                isChecked={e.isChecked}
+                                text={e.text}
+                                items={items}
                             />)
                     }
                 </ScrollView>

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet} from "react-native";
 import {LinearGradient} from 'expo-linear-gradient'
-
-
 import {primaryGradientArray} from "./utils/Colors";
 import Header from "./components/Header";
 import Input from "./components/Input";
@@ -16,14 +14,24 @@ export default class Main extends Component {
         items: []
     };
 
-    handleTodoItem = (isChecked) =>{
+    selectAllItem = (isChecked) =>{
         this.setState({
             isCheckedAll: !isChecked
         });
     };
 
     onSubmitItem = (event) =>{
-        console.log('submit main',event.nativeEvent.text);
+        const {text} = event.nativeEvent;
+        let {items} = this.state;
+
+        items.push({
+            text: text,
+            isChecked: false
+        });
+
+        this.setState({
+            items: items
+        });
     }
 
     render() {
@@ -41,7 +49,7 @@ export default class Main extends Component {
                 <ListItem
                     isCheckedAll={this.state.isCheckedAll}
                     items={this.state.items}
-                    handleTodoItem={this.handleTodoItem}
+                    selectAllItem={this.selectAllItem}
                 />
 
             </LinearGradient>
