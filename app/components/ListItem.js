@@ -29,7 +29,7 @@ export default class ListItem extends Component {
                             <TodoItem
                                 key={i}
                                 isCheckedAll={isCheckedAll}
-                                handleTodoItem={(isCheckedFromInput)=>handleTodoItem(isCheckedFromInput)}
+                                handleTodoItem={handleTodoItem}
                             />)
                     }
                 </ScrollView>

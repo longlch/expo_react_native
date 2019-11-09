@@ -25,17 +25,6 @@ export default class Main extends Component {
     onSubmitItem = (event) =>{
         console.log('submit main',event.nativeEvent.text);
     }
-        /*let temps = [];
-        temps.push({
-            isChecked: false,
-            text: text
-        });
-
-        this.setState({
-            items: temps
-        });
-    };*/
-
 
     render() {
         return (
@@ -52,7 +41,7 @@ export default class Main extends Component {
                 <ListItem
                     isCheckedAll={this.state.isCheckedAll}
                     items={this.state.items}
-                    handleTodoItem={(isChecked)=>this.handleTodoItem(isChecked)}
+                    handleTodoItem={this.handleTodoItem}
                 />
 
             </LinearGradient>
