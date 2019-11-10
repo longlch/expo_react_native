@@ -15,13 +15,9 @@ export default class Input extends Component {
     };
 
     clearText = () => {
-        const {text} = event.nativeEvent;
-        console.log('text submit', text);
         this.setState({
             value: ''
         });
-
-
     };
 
     render() {

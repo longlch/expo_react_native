@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList} from "react-native";
 import TodoItem from "./TodoItem";
 import {Ionicons} from '@expo/vector-icons';
 import {itemListTextStrike, lighterWhite} from "../utils/Colors";
 
-
 export default class ListItem extends Component {
 
     render() {
-        const {isCheckedAll, selectAllItem, items} = this.props;
-
+        const {isCheckedAll, selectAllItem, getDeletedItem, items } = this.props;
 
         return (
             <View style={styles.container}>
@@ -22,17 +20,19 @@ export default class ListItem extends Component {
                     </TouchableOpacity>
                 </View>
 
-                <ScrollView>
-                    {
-                        items.map((e,i)=>
-                            <TodoItem
-                                key={i}
-                                isChecked={e.isChecked}
-                                text={e.text}
-                                items={items}
-                            />)
-                    }
-                </ScrollView>
+                <FlatList
+                    extraData={this.props}
+                    data={items}
+                    keyExtractor={item => item.id}
+                    renderItem={(e) => {
+                        return <TodoItem
+                            item={e.item}
+                            getDeletedItem={getDeletedItem}
+                        />
+                    }}
+                >
+                </FlatList>
+
             </View>
 
         );

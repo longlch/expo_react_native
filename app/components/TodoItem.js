@@ -8,36 +8,49 @@ const { height, width } = Dimensions.get('window');
 export default class TodoItem extends Component {
 
     state = {
-        isChecked: false,
-        text: ''
+        item:{
+            id: '',
+            isChecked: 'false',
+            text: ''
+        }
     };
 
     selectIcon = (isChecked) => {
         this.setState({
-            isChecked: !isChecked
+            item:{
+                ...this.state.item,
+                isChecked: !isChecked
+            }
+        },()=>{
         });
+
     };
 
     componentDidMount() {
-        const {isChecked, text,items} = this.props;
-        // console.log('items from child', items);
+        const {item} = this.props;
+        const {isChecked, text, id} = item;
+
         this.setState({
-            isChecked: isChecked,
-            text: text
+            item: {
+                id: id,
+                isChecked: isChecked,
+                text: text
+            }
         });
     }
 
     render() {
-        const {isChecked, text} = this.state;
+        const {item} = this.state;
+        const {getDeletedItem} = this.props;
 
         return (
             <View style={styles.container}>
 
                 <View style={styles.containerTodo}>
-                    <TouchableOpacity onPress={()=>this.selectIcon(isChecked)}>
+                    <TouchableOpacity onPress={()=>this.selectIcon(item.isChecked)}>
                         <View style={[
                             styles.circle,
-                            isChecked ? {borderColor: circleActive} : {
+                            item.isChecked ? {borderColor: circleActive} : {
                                 borderColor: circleInactive
                             }
                         ]}/>
@@ -46,20 +59,20 @@ export default class TodoItem extends Component {
                     <View style={styles.viewTodo}>
                         <Text style={[
                             styles.text,
-                            isChecked && {
+                            item.isChecked && {
                                 color: itemListTextStrike,
                                 textDecorationLine: 'line-through'
                             }
-                        ]}>{text}</Text>
+                        ]}>{item.text}</Text>
                     </View>
 
                 </View>
 
                 <View style={styles.containerTodo}>
                     {
-                        isChecked &&
+                        item.isChecked &&
                         <View>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={()=> getDeletedItem(item)}>
                                 <Ionicons name="md-trash" size={25} color={deleteIconColor} />
                             </TouchableOpacity>
                         </View>
