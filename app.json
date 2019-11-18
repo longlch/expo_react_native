@@ -2,8 +2,8 @@
   "name": "myBill",
   "displayName": "bill your invoice",
   "expo": {
-    "name": "myBill",
-    "slug": "expo-template-bare",
+    "name": "todo-app",
+    "slug": "todo-app",
     "privacy": "unlisted",
     "sdkVersion": "35.0.0",
     "version": "1.0.0",

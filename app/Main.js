@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet} from "react-native";
+import {ActivityIndicator, StyleSheet, AsyncStorage} from "react-native";
 import {LinearGradient} from 'expo-linear-gradient'
 import {primaryGradientArray} from "./utils/Colors";
 import Header from "./components/Header";
@@ -11,31 +11,86 @@ const headerTitle = "TODO";
 export default class Main extends Component {
 
     state = {
-        isCheckedAll: false,
-        items: []
+        items: [],
+        isLoading: true,
+        allItems: {}
     };
 
-    selectAllItem = (isChecked) =>{
-        this.setState({
-            isCheckedAll: !isChecked
-        });
+    componentDidMount = () => {
+        this.loadingItems();
+    };
+
+    loadingItems = async () => {
+      try {
+          const allItems = await AsyncStorage.getItem('todos');
+          this.setState({
+              isLoading: false,
+              allItems: JSON.parse(allItems) || {}
+          });
+      }  catch (e) {
+          console.error(e);
+      }
     };
 
     onSubmitItem = (event) =>{
         const {text} = event.nativeEvent;
-        let {items} = this.state;
+        let {items, allItems} = this.state;
 
         if(text.trim().length > 0){
 
-            items.push({
-                id: uuid(text),
+            const id = uuid(text);
+
+            let item = {
+                id: id,
                 text: text.trim(),
                 isChecked: false
-            });
+            };
 
+            items.push(item);
+
+            let newItem = {
+                [id]: {
+                    id,
+                    text: text.trim(),
+                    isChecked: false
+                }
+            };
+
+            //TODO: Check this code below.
+            
+            this.setState(prevState=>{
+                const newState = {
+                    ...prevState,
+                    allItems:{
+                        ...prevState.allItems,
+                        ...newItem
+                    }
+                };
+
+                this.saveItems(this.state.allItems);
+                return newState;
+
+            }),()=>{
+
+            };
+
+        }
+    };
+
+    saveItems = newItem =>{
+
+        AsyncStorage.setItem('todos', JSON.stringify(newItem));
+    };
+
+    clearAllItems = async () =>{
+        try{
+            await AsyncStorage.removeItem('todos');
             this.setState({
-                items: items
+                items: [],
+                allItems: {}
             });
+        }  catch (e) {
+            console.error(e);
         }
     };
 
@@ -52,11 +107,13 @@ export default class Main extends Component {
     };
 
     render() {
-        // console.log('[Main] render', this.state.items);
+        const {isLoading, allItems, items} = this.state;
+
         return (
             <LinearGradient
                 style={styles.container}
                 colors={primaryGradientArray}>
+
 
                 <Header title={headerTitle}/>
 
@@ -64,12 +121,17 @@ export default class Main extends Component {
                     onSubmitItem={this.onSubmitItem}
                 />
 
-                <ListItem
-                    isCheckedAll={this.state.isCheckedAll}
-                    items={this.state.items}
-                    selectAllItem={this.selectAllItem}
-                    getDeletedItem = {this.getDeletedItem}
-                />
+                {isLoading
+                    ? <ActivityIndicator size="large" color="white"/>
+
+                    : <ListItem
+                        allItems={allItems}
+                        items={items}
+                        getDeletedItem={this.getDeletedItem}
+                        clearAllItems={this.clearAllItems}
+                    />
+                }
+
 
             </LinearGradient>
         );
